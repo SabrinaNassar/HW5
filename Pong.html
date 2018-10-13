@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.1/p5.min.js"></script>
+  <style>
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+</style>
+<meta charset="utf-8" />
+</head>
+<body>
+  <script>
+
+
+
+  var ball = {
+    xPosition: 200,
+    yPosition: 300,
+    xDirection: -1,
+    yDirection: 1,
+    size: 10,
+  }
+
+  var scoreL = 0;
+  var scoreR = 0;
+
+  const paddleWidth = 10;
+  const paddleHeight = 50;
+  const paddleSpeed = 5;
+
+  var paddleL= {
+    yPosition: 100,
+  }
+
+  var paddleR= {
+    yPosition: 100,
+  }
+
+  function setup(){
+    createCanvas(400,400);
+  }
+
+  function draw(){
+    background (200);
+
+    // draw puck
+    ellipse(ball.xPosition, ball.yPosition, ball.size);
+    //  ball.xPosition += ball.xDirection;
+
+    // draw left player
+    rect(0, paddleL.yPosition, paddleWidth, paddleHeight);
+
+    // draw right player
+    rect(width - paddleWidth, paddleR.yPosition, paddleWidth, paddleHeight);
+
+    //
+    // Update ball position
+    ball.xPosition += ball.xDirection
+    ball.yPosition -= ball.yDirection
+
+    // Check if ball is bouncing off bottom
+    if (ball.yPosition + ball.size >= height) {
+      ball.yPosition = height - ball.size;
+      ball.yDirection = ball.yDirection * -1;
+    }
+
+    // Check if ball is bouncing off top
+    if (ball.yPosition - ball.size <= 0) {
+      ball.yPosition = ball.size;
+      ball.yDirection = ball.yDirection * -1;    }
+
+    // Check if ball is hitting right paddle
+    if (
+        paddleR.yPosition <= ball.yPosition &&
+        ball.yPosition <= paddleR.yPosition + paddleHeight &&
+        ball.xPosition + ball.size >= width - paddleWidth
+        )
+    {
+      ball.xDirection = ball.xDirection * -1;
+    }
+    // Check if ball is hitting left paddle
+    if (
+        paddleL.yPosition <= ball.yPosition &&
+        ball.yPosition <= paddleL.yPosition + paddleHeight &&
+        ball.xPosition + ball.size <= paddleWidth + ball.size
+        )
+    {
+      console.log("IM HIT")
+      ball.xDirection = ball.xDirection * -1;
+    }
+    // Check if the ball is off the screen
+    if (ball.xPosition < 0) {
+      fill(255, 0, 0);
+      textSize(20);
+      text("Left Player Lost", 100, 100);
+      noLoop();
+    }
+    if (ball.xPosition > width) {
+      fill(255, 0, 0);
+      textSize(20);
+      text("Right Player Lost", 100, 100);
+      noLoop();
+    }
+    // Check for user input
+    if (keyIsDown(87))// letter W
+    {
+      paddleL.yPosition -= paddleSpeed;
+      if (paddleL.yPosition < 0){
+        paddleL.yPosition
+      }
+    }
+
+    if (keyIsDown(83))// letter S
+    {
+      paddleL.yPosition += paddleSpeed;
+      if (paddleL.yPosition > height - paddleHeight){
+        paddleL.yPosition = height - paddleHeight;
+      }
+    }
+
+    if (keyIsDown(38))// letter up arrow
+    {
+      paddleR.yPosition -= paddleSpeed;
+    }
+
+    if (keyIsDown(40))// letter Down arrow
+    {
+      paddleR.yPosition += paddleSpeed;
+    }
+  }
+
+
+
+
+  </script>
+  </body>
+  </html>
