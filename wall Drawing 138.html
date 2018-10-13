@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.1/p5.min.js"></script>
+  <style>
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+</style>
+<meta charset="utf-8" />
+</head>
+<body>
+  <script>
+  function setup(){
+    createCanvas(1600,800);
+  }
+
+  function draw(){
+    background (200);
+    noFill();
+
+    for (var i = width; i > 0; i -= 20) {
+      stroke(180);
+      ellipse(width/2, height*1.5, i*2);
+      ellipse(width/2, height* -1, i*2);
+      ellipse(width, height/2, i*2);
+      ellipse(0, height/2, i*2);
+      stroke(150);
+      ellipse(width/2, height/2, i*1.5);
+
+
+    }
+  }
+
+  </script>
+</body>
+</html>
